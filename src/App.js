@@ -10,16 +10,7 @@ import LanguageProvider from "./contexts/LanguageContext";
 
 function App() {
   return (
-    /*<ThemeProvider>
-      <LanguageProvider>
-       
-      
-        
-       
-      </LanguageProvider>
-    </ThemeProvider>
-    */
-    <ThemeProvider>
+    <ThemeProvider> {/*Anything wrapped by these context providers will have access to the state contained within the providers.*/}
       <LanguageProvider>
       <Navbar />
         <Form />
