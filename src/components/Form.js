@@ -41,11 +41,11 @@ const words = {
 
 function Form(props) {
 
-    const { language, changeLanguageFunc } = useContext(LanguageContext)
+    const { languageValue, setLanguageFunc } = useContext(LanguageContext)
 
 
-    const email = words[language].email; //No idea how this works at all. 
-    const { signIn, password, remember } = words[language];  //A destructured version of const email above, you could very easily have email in here too, just wanted a destructured and non-destructured version.
+    const email = words[languageValue].email; //No idea how this works at all. 
+    const { signIn, password, remember } = words[languageValue];  //A destructured version of const email above, you could very easily have email in here too, just wanted a destructured and non-destructured version.
 
     return (
         <main >
@@ -56,7 +56,7 @@ function Form(props) {
                 <Typography variant="h5">
                     {signIn}
                 </Typography>
-                <Select value={language} onChange={changeLanguageFunc /*The function imported from LanguageContext above, the value this is set to is used in a setstate */} >
+                <Select value={languageValue} onChange={setLanguageFunc /*The function imported from LanguageContext above, the value this is set to is used in a setstate */} >
                     <MenuItem value="english">English</MenuItem>
                     <MenuItem value="french">French</MenuItem>
                     <MenuItem value="spanish">Spanish</MenuItem>

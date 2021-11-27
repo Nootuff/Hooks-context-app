@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, useContext } from "react"
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,57 +11,58 @@ import SearchIcon from '@mui/icons-material/Search';
 import Switch from '@mui/material/Switch';
 import '../styles/NavbarStyles.css';
 import { ThemeContext } from "../contexts/ThemeContext"; //Imports the ThemeContext const from ThemeContext.
-import { withLanguageContext } from "../contexts/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext"; //Imports everything from LanguageContext.
 
 const content = {
     english: {
-      search: "Search",
-      flag: "english flag"
+        title: "App Title",
+        search: "Search",
+        flag: "english flag"
     },
     french: {
-      search: "Chercher",
-      flag: "french flag"
+        title: "Appli Titre",
+        search: "Chercher",
+        flag: "french flag"
     },
     spanish: {
-      search: "Buscar",
-      flag: "spanish flag "
+        title: "Aplicación Título",
+        search: "Buscar",
+        flag: "spanish flag "
     }
-  };
+};
 
-class Navbar extends Component {
-    static contextType = ThemeContext; //This gives you access to everything in ThemeContext, you can;t have two of these in a class based component apparently. 
-    render() {
-        const { isDarkMode, toggleThemeFunc } = this.context; //Destructured const, contains the value of isDarkMode & toggleThemeFunc.
-        const { language } = this.props.languageContext; //I have no idea, where does languageContext come from?
-        const {search, flag} = content[language];
+function Navbar(props) {
 
-        //console.log(this.context);//The context object is accessed this way.
+    const { isDarkMode, toggleThemeFunc } = useContext(ThemeContext); //Destructured const, contains the value of isDarkMode & toggleThemeFunc.
+    const  languageValue  = useContext(LanguageContext).languageValue; //This is non destructured, languageValue is one of the props passed in from LanguageContext. The destructured version would look like: 
+    //const { languageValue } = useContext(LanguageContext);
+    const { search, flag, title } = content[languageValue];
 
-        return (
-            <div>
-                <AppBar position="static" color={ isDarkMode ? "primary" : "default" /*Ternary operator, looks at the value of isDarkMode in the ThemeContext file*/ }>
-                    <Toolbar>
-                        <IconButton color="inherit" >
-                            <span>{flag}</span>
+    return (
+        <div>
+            <AppBar position="static" color={isDarkMode ? "primary" : "default" /*Ternary operator, looks at the value of isDarkMode in the ThemeContext file*/}>
+                <Toolbar>
+                    <IconButton color="inherit" >
+                        <span>{flag}</span>
+                    </IconButton>
+                    <Typography variant="h6" color="inherit">
+                        {title}
+                    </Typography>
+                    <Switch color="secondary" onChange={toggleThemeFunc /*Uses the function defined in ThemeContext*/} />
+                    <Paper className="container" >
+                        <InputBase
+                            className="search"
+                            placeholder={search + "..."}
+                        />
+                        <IconButton type="submit" aria-label="search">
+                            <SearchIcon className="searchIcon" />
                         </IconButton>
-                        <Typography variant="h6" color="inherit">
-                            App Title
-                        </Typography>
-                        <Switch color="secondary" onChange={ toggleThemeFunc /*Uses the function defined in ThemeContext*/} />
-                        <Paper className="container" >
-                            <InputBase
-                                className="search"
-                                placeholder={search + "..."}
-                            />
-                            <IconButton type="submit" aria-label="search">
-                                <SearchIcon className="searchIcon" />
-                            </IconButton>
-                        </Paper>
-                    </Toolbar>
-                </AppBar>
-            </div>
-        )
-    }
+                    </Paper>
+                </Toolbar>
+            </AppBar>
+        </div>
+    )
 }
 
-export default withLanguageContext(Navbar); //withLanguageContext is the function imported at the start of the doc, this entire Navbar component is being passed in as a prop. 
+
+export default Navbar;
