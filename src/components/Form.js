@@ -43,8 +43,7 @@ function Form(props) {
 
     const { languageValue, setLanguageFunc } = useContext(LanguageContext)
 
-
-    const email = words[languageValue].email; //No idea how this works at all. 
+    const email = words[languageValue].email; //No idea how this works at all, searches the words object somehow. 
     const { signIn, password, remember } = words[languageValue];  //A destructured version of const email above, you could very easily have email in here too, just wanted a destructured and non-destructured version.
 
     return (

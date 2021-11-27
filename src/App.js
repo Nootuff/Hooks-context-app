@@ -7,7 +7,6 @@ import ThemeProvider from "./contexts/ThemeContext";
 
 import LanguageProvider from "./contexts/LanguageContext";
 
-
 function App() {
   return (
     <ThemeProvider> {/*Anything wrapped by these context providers will have access to the state contained within the providers.*/}

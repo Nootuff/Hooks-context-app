@@ -33,14 +33,16 @@ const content = {
 
 function Navbar(props) {
 
-    const { isDarkMode, toggleThemeFunc } = useContext(ThemeContext); //Destructured const, contains the value of isDarkMode & toggleThemeFunc.
+    const { isDarkModeValue, toggleThemeFunc } = useContext(ThemeContext); //Destructured const, contains the values of isDarkModeValue & toggleThemeFunc, props passed in from ThemeContext.
+
     const  languageValue  = useContext(LanguageContext).languageValue; //This is non destructured, languageValue is one of the props passed in from LanguageContext. The destructured version would look like: 
     //const { languageValue } = useContext(LanguageContext);
-    const { search, flag, title } = content[languageValue];
+
+    const { search, flag, title } = content[languageValue]; //No idea how this syntax works, searches the content object somehow. 
 
     return (
         <div>
-            <AppBar position="static" color={isDarkMode ? "primary" : "default" /*Ternary operator, looks at the value of isDarkMode in the ThemeContext file*/}>
+            <AppBar position="static" color={ isDarkModeValue ? "primary" : "default" /*Ternary operator, looks at the value of isDarkMode in the ThemeContext file*/ }>
                 <Toolbar>
                     <IconButton color="inherit" >
                         <span>{flag}</span>
